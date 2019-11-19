@@ -24,6 +24,18 @@ app.use(session({
 }))
 
 
+// Middleware para checar que este logged in
+function requiresLogin(req, res, next) {
+	if (req.session && req.session.userId) {
+		console.log(req);
+	  return next();
+	} else {
+	  var err = new Error('You must be logged in to view this page.');
+	  err.status = 401;
+	  return next(err);
+	}
+  }
+
 router.get('/', function(req, res) {
 	res.sendFile(path.join(__dirname+'/index.html'));
 });
@@ -36,7 +48,7 @@ router.get('/listener-login', function(req, res) {
 	res.sendFile(path.join(__dirname+"/listener-login/index.html"));
 });
 
-router.get('/admin-homepage', function(req, res) {
+router.get('/admin-homepage', requiresLogin, function(req, res) {
 	res.sendFile(path.join(__dirname+"/admin-homepage/index.html"));
 });
 
