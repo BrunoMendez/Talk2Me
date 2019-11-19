@@ -36,6 +36,10 @@ router.get('/listener-login', function(req, res) {
 	res.sendFile(path.join(__dirname+"/listener-login/index.html"));
 });
 
+router.get('/login', function(req, res) {
+	res.sendFile(path.join(__dirname+"/login/index.html"));
+});
+
 router.get('/admin-homepage', function(req, res) {
 	res.sendFile(path.join(__dirname+"/admin-homepage/index.html"));
 });
