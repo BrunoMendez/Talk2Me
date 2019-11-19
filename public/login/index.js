@@ -1,26 +1,38 @@
-let loginBtn = $("#btn-login");
+let btnLogin = $("#btn-login");
+let btnListener = $("#btn-listener");
+let btnAdmin = $("#btn-admin");
 
-loginBtn.on("click", event => {
-  event.preventDefault();
-
-  console.log("click");
-
-  //TODO: validate/clean inputs
+function ajaxSettings(userIndex){
+  let isAdmin = userIndex == "1";
+  //TODO: clean inputs
   let user = {
-    username: $("#login_username").val(),
+    email: $("#login_email").val(),
     password: $("#login_password").val(),
   }
-
-  //POST porque es un login, GET muestra info
-  $.ajax({
-    url: "/login",
+  let settings = {
+    url: (isAdmin ? "/admin-login" : "/listener-login"),
     method: "POST",
     dataType: "JSON",
     contentType: "application/json",
     data: JSON.stringify(user),
     success: (result) =>{
-      //TODO: depending in result value, goto chat or user edit page
-      console.log(result);
+      if (isAdmin) {
+        window.alert("TODO: Admin Login");
+      }else{
+        window.alert("TODO: Listener Login");
+      }
+    },
+    error: (result) =>{
+      window.alert("TODO: Login error")
     }
-  });
+  }
+  return settings;
+}
+
+btnLogin.on("click", event => {
+  event.preventDefault();
+
+  var userType = $('#btn-type label.active input').val();
+  let settings = ajaxSettings(userType);
+  $.ajax(settings);
 });
