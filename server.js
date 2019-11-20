@@ -25,7 +25,7 @@ app.use(session({
 
 
 // Middleware para checar que este logged in
-function requiresLogin(req, res, next) {
+var requiresLogin = function (req, res, next) {
 	if (req.session && req.session.userId) {
 		console.log(req);
 	  return next();
@@ -52,11 +52,11 @@ router.get('/login', function(req, res) {
 	res.sendFile(path.join(__dirname+"/login/index.html"));
 });
 
-router.get('/admin-homepage', function(req, res) {
+router.get('/admin-homepage', requiresLogin, function(req, res) {
 	res.sendFile(path.join(__dirname+"/admin-homepage/index.html"));
 });
 
-router.get('/listener-homepage', function(req, res) {
+router.get('/listener-homepage', requiresLogin, function(req, res) {
 	res.sendFile(path.join(__dirname+"/listener-homepage/index.html"));
 });
 
@@ -66,15 +66,10 @@ router.get('/chat', function(req, res) {
 
 router.get('/logout', function(req, res, next) {
 	if (req.session) {
-	  // delete session object
-	  req.session.destroy(function(err) {
-		if(err) {
-		  return next(err);
-		} else {
-		  return res.sendFile(__dirname + '/index.html');
-		}
-	  });
+		req.session = null;
 	}
+	res.redirect('/');
+	console.log(req.session);
   });
 
 app.post('/admin-register', function(req, res) {
@@ -105,7 +100,7 @@ app.post('/admin-login', function(req, res) {
 	let email = req.body.email;
 	let password = req.body.password;
 
-	AdminList.login(email, password, function(err, isMatch, reason) {
+	AdminList.login(email, password, function(err, user) {
 		if (err) {
 			if (err.status === 401) {
 				res.statusMessage = "User not found";
@@ -120,7 +115,74 @@ app.post('/admin-login', function(req, res) {
 				message : "Something went wrong with the DB. Try again later."
 			})
 		}
-		if (isMatch) {
+		if (user) {
+			req.session.userId = user._id;
+			console.log(req);
+			console.log(user);
+			return res.status(200).json({
+				message: "Logged in",
+				status:200
+			});
+		} else {
+			return res.status(403).json({
+				message: "Wrong password",
+				status:403
+			});
+		}
+	});
+})
+
+app.post('/listener-register', function(req, res) {
+	let email = req.body.email;
+	let password = req.body.password;
+	let firstName = req.body.name;
+	let lastName = req.body.lastName;
+
+	let newAdmin = {
+		email: email,
+		password: password,
+		firstName: firstName,
+		lastName: lastName
+	}
+	AdminList.post(newAdmin)
+        .then(admin => {
+            return res.status(200).json({
+                message: "Registered!",
+                status:200
+            });
+        })
+        .catch( err => {
+			res.statusMessage = "Something went wrong with the DB. Try again later.";
+			return res.status( 500 ).json({
+				status : 500,
+				message : "Something went wrong with the DB. Try again later."
+			})
+        });
+});
+
+app.post('/listener-login', function(req, res) {
+	let email = req.body.email;
+	let password = req.body.password;
+
+	AdminList.login(email, password, function(err, user) {
+		if (err) {
+			if (err.status === 401) {
+				res.statusMessage = "User not found";
+					return res.status( 401 ).json({
+					status : 401,
+					message : "User not found"
+				});
+			}
+			res.statusMessage = "Something went wrong with the DB. Try again later.";
+			return res.status( 500 ).json({
+				status : 500,
+				message : "Something went wrong with the DB. Try again later."
+			})
+		}
+		if (user) {
+			req.session.userId = user._id;
+			console.log(req);
+			console.log(user);
 			return res.status(200).json({
 				message: "Logged in",
 				status:200
