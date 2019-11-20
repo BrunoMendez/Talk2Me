@@ -10,10 +10,11 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="index.css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-dark">
         <a class="navbar-brand" href="index.html">Talk2Me</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -30,15 +31,20 @@
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" id="adminLogin" action="/admin-login" method="GET">
-                <button class="btn btn-outline-success m-2 my-sm-0" type="submit">Administrador</button>
+                <button class="btn btn-outline-success m-2 my-sm-0 login-btn" type="submit">Login</button>
             </form>
-            <form class="form-inline my-2 my-lg-0" id="listenerLogin">
-                    <button class="btn btn-outline-success m-2 my-sm-0" type="submit">Escuchador</button>
-                </form>
         </div>
     </nav>
     <div class="main">
-        <button type="button" class="btn btn-primary btn-lg btn-block" id="chatButton">Empezar a chatear</button>
+        <div class="jumbotron">
+            <h1 class="display-4 hero-h1">Bienvenido a Talk2Me!</h1>
+            <p class="lead">Esta es una plataforma de ayuda personal donde podrás hablar con alguien capacitado sobre lo que quieras de manera anónima. Esperamos que sea de verdadera ayuda.</p>
+            <hr class="my-4">
+            <p class="lead">Da click en "Comienza Chat" para buscar un escuchador que te ayude.</p>
+        </div>
+        <div class="button-section">
+            <a href="#" class="special-button instagram"><span class="gradient"></span>Comienza Chat</a>
+        </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
