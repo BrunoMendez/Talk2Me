@@ -2,7 +2,7 @@ let mongoose = require('mongoose');
 let bcrypt = require("bcrypt");
 mongoose.Promise = global.Promise;
 
-var AdminSchema = new mongoose.Schema({
+var ListenerSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
@@ -12,10 +12,18 @@ var AdminSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
     }
 });
 
-AdminSchema.pre('save', function (next) {
+ListenerSchema.pre('save', function (next) {
     var user = this;
     bcrypt.hash(user.password, 10, function (err, hash) {
         if (err) {
@@ -26,8 +34,8 @@ AdminSchema.pre('save', function (next) {
     })
 });
 
-AdminSchema.statics.authenticate = function (email, password, callback) {
-    Admin.findOne({ email: email })
+ListenerSchema.statics.authenticate = function (email, password, callback) {
+    Listener.findOne({ email: email })
       .exec(function (err, user) {
         if (err) {
           return callback(err)
@@ -46,16 +54,16 @@ AdminSchema.statics.authenticate = function (email, password, callback) {
       });
 }
 
-var Admin = mongoose.model('Admin', AdminSchema);
+var Listener = mongoose.model('Listener', ListenerSchema);
 
-let AdminList = {
+let ListenerList = {
     login: function (email, password, callback) {
-        return Admin.authenticate(email, password, callback);
+        return Listener.authenticate(email, password, callback);
     },
-    post: function (newAdmin) {
-        return Admin.create(newAdmin)
-            .then(admin => {
-                return newAdmin;
+    register: function (newListener) {
+        return Listener.create(newListener)
+            .then(listener => {
+                return newListener;
             })
             .catch(error => {
                 throw Error(error);
@@ -63,4 +71,4 @@ let AdminList = {
     }
 }
 
-module.exports = { AdminList };
+module.exports = { ListenerList };

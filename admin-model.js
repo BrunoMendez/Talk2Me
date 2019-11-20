@@ -12,6 +12,14 @@ var AdminSchema = new mongoose.Schema({
     password: {
         type: String,
         required: true,
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
     }
 });
 
@@ -52,7 +60,7 @@ let AdminList = {
     login: function (email, password, callback) {
         return Admin.authenticate(email, password, callback);
     },
-    post: function (newAdmin) {
+    register: function (newAdmin) {
         return Admin.create(newAdmin)
             .then(admin => {
                 return newAdmin;
