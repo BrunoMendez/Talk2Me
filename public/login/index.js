@@ -1,6 +1,4 @@
 let btnLogin = $("#btn-login");
-let btnListener = $("#btn-listener");
-let btnAdmin = $("#btn-admin");
 
 function ajaxSettings(userIndex){
   let isAdmin = userIndex == "1";

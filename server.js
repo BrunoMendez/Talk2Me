@@ -80,7 +80,8 @@ router.get('/logout', function(req, res, next) {
 app.post('/admin-register', function(req, res) {
 	let email = req.body.email;
 	let password = req.body.password;
-
+	console.log(email);
+	console.log(password);
 	let newAdmin = {
 		email: email,
 		password: password
