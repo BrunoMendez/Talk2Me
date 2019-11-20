@@ -19,7 +19,6 @@ function login(userIndex) {
 
   fetch(url, settings)
     .then(response => {
-      console.log("@@@")
       if(response.ok) {
         return response.json();
       }
