@@ -2,37 +2,41 @@ let btnLogin = $("#btn-login");
 let btnListener = $("#btn-listener");
 let btnAdmin = $("#btn-admin");
 
-function ajaxSettings(userIndex){
+function login(userIndex) {
   let isAdmin = userIndex == "1";
-  //TODO: clean inputs
   let user = {
     email: $("#login_email").val(),
     password: $("#login_password").val(),
   }
+  let url = (isAdmin ? "/admin-login" : "/listener-login");
   let settings = {
-    url: (isAdmin ? "/admin-login" : "/listener-login"),
     method: "POST",
-    dataType: "JSON",
-    contentType: "application/json",
-    data: JSON.stringify(user),
-    success: (result) =>{
-      if (isAdmin) {
-        window.alert("TODO: Admin Login");
-      }else{
-        window.alert("TODO: Listener Login");
-      }
+    headers: {
+      'Content-Type': "application/json"
     },
-    error: (result) =>{
-      window.alert("TODO: Login error")
-    }
+    body: JSON.stringify(user)
   }
-  return settings;
+
+  fetch(url, settings)
+    .then(response => {
+      console.log("@@@")
+      if(response.ok) {
+        return response.json();
+      }
+      throw new Error (response.statusText);
+    })
+    .then(responseJSON => {
+      let newUrl = (isAdmin ? "/admin-homepage" : "/listener-homepage");
+      location.method = "get";
+      location.href = newUrl;
+    })
+    .catch(error => {
+      console.log(error);
+    });
 }
 
 btnLogin.on("click", event => {
   event.preventDefault();
-
   var userType = $('#btn-type label.active input').val();
-  let settings = ajaxSettings(userType);
-  $.ajax(settings);
+  login(userType);
 });
