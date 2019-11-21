@@ -1,31 +1,66 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <meta charset="UFT-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/login.css">
-    <title> talk2me - login</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Talk2Me - Login
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/login.css" type="text/css"/>
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <script defer src="http://localhost:8080/socket.io/socket.io.js"></script>
   </head>
+
   <body>
-    <div class="card">
-      <div class="card-body">
-        <fieldset class="login">
-          <h2>Login</h2>
-          <input type="text" id="login_email" class="fields" placeholder="email">
-          <input type="password" id="login_password" class="fields" placeholder="password">
-          </br>
-          </br>
-          <div class="btn-group btn-group-toggle" id="btn-type" data-toggle="buttons">
-            <label class="btn btn-secondary active">
-              <input type="radio" name="options" id="btn-listener" autocomplete="off" value="0"checked> Listener
-            </label>
-            <label class="btn btn-secondary">
-              <input type="radio" name="options" id="btn-admin" autocomplete="off" value="1"> Admin
-            </label>
-          </div>
-          <input type="button" class="btn btn-primary" value="Login" id="btn-login">
-        </fieldset>
-      </div>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/" method="GET">Talk2Me</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/" method="get">Inicio <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/" method="get">Sobre nosotros</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Login</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="login_email">Email address</label>
+                                <input type="email" class="form-control" id="login_email" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label for="login_password">Password</label>
+                                <input type="password" class="form-control" id="login_password" placeholder="Contraseña">
+                            </div>
+                            <div class="btn-group btn-group-toggle" id="btn-type" data-toggle="buttons">
+                                <label class="btn btn-info active">
+                                    <input type="radio" name="options" id="btn-listener" autocomplete="off" value="0" checked> Escuchador
+                                </label>
+                                <label class="btn btn-info">
+                                    <input type="radio" name="options" id="btn-admin" autocomplete="off" value="1"> Admin
+                                </label>
+                            </div>
+                            <input type="button" class="btn btn-primary" value="Login" id="btn-login">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
