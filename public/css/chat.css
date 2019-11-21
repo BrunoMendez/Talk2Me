@@ -16,7 +16,7 @@ body {
 }
 .navbar-brand {
   font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+  font-weight: 600;
 }
 .btn-outline-success {
     color: #FFF9B1;
@@ -37,16 +37,28 @@ body {
 }
 
 .mytext{
-    border:0;padding:10px;background:whitesmoke;
+    border:0;padding:10px;
+    background:whitesmoke;
 }
 .text{
-    width:100%;display:flex;flex-direction:column;
+    width:100%;
+    display:flex;
+    flex-direction:column;
 }
 .text > p:first-of-type{
-    width:100%;margin-top:0;margin-bottom:auto;line-height: 13px;font-size: 12px;
+    width:100%;
+    margin-top:0;
+    margin-bottom:auto;
+    line-height: 13px;
+    font-size: 12px;
+    word-break: break-all;
 }
 .text > p:last-of-type{
-    width:100%;text-align:right;color:silver;margin-bottom:-7px;margin-top:auto;
+    width:100%;
+    text-align:right;
+    color:silver;
+    margin-bottom:-7px;
+    margin-top:auto;
 }
 .text-l{
     float:left;padding-right:10px;
@@ -56,13 +68,21 @@ body {
 }
 
 .macro{
-    margin-top:5px;width:100%;border-radius:5px;padding:5px;display:flex;
+    margin-top:5px;
+    width:auto;
+    max-width: 75%;
+    border-radius:5px;
+    padding:5px;
+    display:flex;
+
 }
 .msj-rta{
-    float:right;background:whitesmoke;
+    float:right;
+    background:whitesmoke;
 }
 .msj{
-    float:left;background:white;
+    float:left;
+    background:white;
 }
 .frame{
     background-image: url(../assets/listenerBG.jpg);
@@ -113,6 +133,10 @@ body {
     border-width: 13px 13px 0 0;
     border-color: whitesmoke transparent transparent transparent;           
 }  
+#text-field {
+    width: 100%;
+    max-width: 100%;
+}
 
 input:focus{
     outline: none;
