@@ -103,12 +103,15 @@ body {
 }
 #message-list {
     width:100%;
+    max-height: 80%;
+    height: 80%;
     list-style-type: none;
     padding:18px;
     position:absolute;
-    bottom:60px;
     display:flex;
     flex-direction: column;
+    overflow:hidden; 
+    overflow-y:scroll;
 }
 .msj:before{
     width: 0;
@@ -136,7 +139,12 @@ body {
     width: 100%;
     max-width: 100%;
 }
-
+.name-in-msg-anon {
+    color: darkred;
+}
+.name-in-msg-listener {
+    color: darkgreen; 
+}
 input:focus{
     outline: none;
 } 
