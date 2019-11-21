@@ -1,63 +1,96 @@
 <!DOCTYPE>
 <html lang="en">
-  <head>
-    <meta charset="UFT-8">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" href="../css/admin.css">
-    <title> talk2me - users</title>
-  </head>
-  <body>
-    <div class="container">
-      <div class="row">
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">Register User</h2>
-              <fieldset class="register">
-                <input type="text" id="register_email" class="fields" placeholder="email">
-                <input type="text" id="register_password" class="fields" placeholder="password">
-                </br>
-                </br>
-                <div class="btn-group btn-group-toggle" id="btn-type-register" data-toggle="buttons">
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="btn-listener-register" autocomplete="off" value="0"checked> Listener
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="btn-admin-register" autocomplete="off" value="1"> Admin
-                  </label>
-                </div>
-                <input type="button" class="btn btn-primary" value="Register" id="btn-register">
-              </fieldset>
-            </div>
-          </div>
-        </div>
-        <div class="col-sm-6">
-          <div class="card">
-            <div class="card-body">
-              <h2 class="card-title">Delete User</h2>
-              <fieldset class="delete">
-                <input type="text" id="delete_email" class="fields" placeholder="email">
-                </br>
-                </br>
-                <div class="btn-group btn-group-toggle" id="btn-type-delete" data-toggle="buttons">
-                  <label class="btn btn-secondary active">
-                    <input type="radio" name="options" id="btn-listener-delete" autocomplete="off" value="0"checked> Listener
-                  </label>
-                  <label class="btn btn-secondary">
-                    <input type="radio" name="options" id="btn-admin-delete" autocomplete="off" value="1"> Admin
-                  </label>
-                </div>
-                <input type="button" class="btn btn-primary" value="Delete" id="btn-delete">
-              </fieldset>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>
+        Talk2Me
+    </title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/admin.css" type="text/css" />
+    <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <a class="navbar-brand" href="/" method="GET">Talk2Me</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+            </ul>
+            <form class="form-inline my-2 my-lg-0" id="adminLogin" action="/" method="GET">
+                <button class="btn btn-outline-success m-2 my-sm-0 logout-btn" type="submit">Logout</button>
+            </form>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Registrar Usuario</h2>
+                        <form>
+                          <div class="form-group">
+                                <label for="register_name">Nombre</label>
+                                <input type="text" class="form-control" id="register_name"  placeholder="Nombre">
+                            </div>
+                            <div class="form-group">
+                                <label for="register_lastname">Apellido</label>
+                                <input type="text" class="form-control" id="register_lastname"  placeholder="Apellido">
+                            </div>
+                            <div class="form-group">
+                                <label for="register_email">Email address</label>
+                                <input type="email" class="form-control" id="register_email" aria-describedby="emailHelp" placeholder="Email">
+                                <small id="emailHelp" class="form-text text-muted">Este email se quedará privado.</small>
+                            </div>
+                            <div class="form-group">
+                                <label for="register_password">Password</label>
+                                <input type="password" class="form-control" id="register_password" placeholder="Contraseña">
+                            </div>
+                            <div class="btn-group btn-group-toggle" id="btn-type-register" data-toggle="buttons">
+                                <label class="btn btn-info active">
+                                    <input type="radio" name="options" id="btn-listener-register" autocomplete="off" value="0" checked> Escuchador
+                                </label>
+                                <label class="btn btn-info">
+                                    <input type="radio" name="options" id="btn-admin-register" autocomplete="off" value="1"> Admin
+                                </label>
+                            </div>
+                            <input type="button" class="btn btn-primary" value="Register" id="btn-register">
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-12 col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <h2 class="card-title">Borrar Usuario</h2>
+                        <form>
+                            <div class="form-group">
+                                <label for="delete_email">Email address</label>
+                                <input type="email" class="form-control" id="delete_email"  placeholder="Email">  
+                            </div>
+                            <div class="btn-group btn-group-toggle" id="btn-type-delete" data-toggle="buttons">
+                                <label class="btn btn-info active">
+                                    <input type="radio" name="options" id="btn-listener-delete" autocomplete="off" value="0" checked> Escuchador
+                                </label>
+                                <label class="btn btn-info">
+                                    <input type="radio" name="options" id="btn-admin-delete" autocomplete="off" value="1"> Admin
+                                </label>
+                            </div>
+                            <input type="button" class="btn btn-danger" value="Delete" id="btn-delete">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <script src="../scripts/admin.js"></script>
-  </body>
+</body>
+
 </html>

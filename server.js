@@ -48,7 +48,7 @@ router.get('/login', function (req, res, next) {
 		res.render('login');
 	}
 });
-
+//bruno.m_@hotmail.com 12345
 router.get('/admin-homepage', function (req, res, next) {
 	if (req.session && req.session.userId && req.session.isAdmin) {
 		res.render('admin');
