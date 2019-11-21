@@ -11,11 +11,12 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/listener.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+    <script defer src="http://localhost:8080/socket.io/socket.io.js"></script>
 </head>
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark">
-        <a class="navbar-brand" href="index.html">Talk2Me</a>
+        <a class="navbar-brand" href="/listener-homepage">Talk2Me</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -24,10 +25,10 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="index.html">Inicio <span class="sr-only">(current)</span></a>
+                    <a class="nav-link" href="/listener-homepage">Inicio <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="index.html">Sobre nosotros</a>
+                    <a class="nav-link" href="/listener-homepage">Sobre nosotros</a>
                 </li>
             </ul>
             <form class="form-inline my-2 my-lg-0" id="listener-logout" action="/logout" method="GET">
@@ -37,13 +38,13 @@
     </nav>
     <div class="main">
         <div class="jumbotron">
-            <h1 class="display-4 hero-h1" id="greeting">Bienvenido</h1>
+            <h1 class="display-4 hero-h1" id="greeting">Bienvenido <%- name %>!</h1>
             <p class="lead">Recuerda que como escuchador tu deber es apoyar a las personas con las que trabajas y darles una experiencia positiva de la plataforma. Queremos que los usuarios se sientan comodos y regresen.</p>
             <hr class="my-4">
             <p class="lead">Da click en "Comienza a Escuchar" para buscar un escuchador que te ayude.</p>
         </div>
         <div class="button-section">
-            <a href="#" class="special-button instagram"><span class="gradient"></span>Comienza a Escuchar</a>
+            <a href="/chat" class="special-button instagram"><span class="gradient"></span>Comienza a Escuchar</a>
         </div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"

@@ -50,7 +50,7 @@ router.get('/admin-homepage', function (req, res, next) {
 
 router.get('/listener-homepage', function (req, res, next) {
 	if (req.session && req.session.userId && !req.session.isAdmin) {
-		res.render('listener');
+		res.render('listener', {name : req.session.name});
 	} else {
 		res.redirect('/');
 	}
