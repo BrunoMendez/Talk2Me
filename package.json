@@ -11,9 +11,12 @@
   "dependencies": {
     "bcrypt": "^3.0.7",
     "body-parser": "^1.19.0",
+    "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
     "mongoose": "^5.7.11",
-    "morgan": "^1.9.1"
+    "morgan": "^1.9.1",
+    "popup": "0.0.3",
+    "popups": "^1.1.3"
   }
 }

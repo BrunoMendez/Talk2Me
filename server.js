@@ -1,135 +1,201 @@
-let express = require( "express" );
-let morgan = require( "morgan" );
-let mongoose = require( "mongoose" );
-let bodyParser = require( "body-parser" );
-let bcrypt = require("bcrypt");
-let session = require('express-session')
-let router = express.Router();
+let express = require("express");
+let morgan = require("morgan");
+var cookieParser = require('cookie-parser');
+let mongoose = require("mongoose");
+let bodyParser = require("body-parser");
+let session = require('express-session');
 let { AdminList } = require('./admin-model');
-const { DATABASE_URL, PORT } = require( './config' );
+let { ListenerList } = require('./listener-model');
+const { DATABASE_URL, PORT } = require('./config');
 
 let app = express();
-let jsonParser = bodyParser.json();
+let router = express.Router();
 mongoose.Promise = global.Promise;
 
-app.use( express.static( __dirname + "/public" ) );
-
-app.use( morgan( "dev" ) );
+app.use(morgan("dev"));
 app.use(bodyParser.json());
-app.use('/', router);
+app.use(cookieParser());
 app.use(session({
 	secret: 'work hard',
 	resave: true,
-	saveUninitialized: false
-}))
+	saveUninitialized: false,
+	cookie: { maxAge: 8*60*60*1000 }
+}));
+app.use('/', router);
 
-
-// Middleware para checar que este logged in
-function requiresLogin(req, res, next) {
-	if (req.session && req.session.userId) {
-		console.log(req);
-	  return next();
+router.get('/admin-homepage', function (req, res, next) {
+	if (req.session && req.session.userId && req.session.isAdmin) {
+		return next();
 	} else {
-	  var err = new Error('You must be logged in to view this page.');
-	  err.status = 401;
-	  return next(err);
+		return res.redirect('/');
 	}
-  }
-
-router.get('/', function(req, res) {
-	res.sendFile(path.join(__dirname+'/index.html'));
 });
 
-router.get('/admin-login', function(req, res) {
-	res.sendFile(path.join(__dirname+'/admin-login/index.html'));
+router.get('/listener-homepage', function (req, res, next) {
+	console.log(req.session);
+	if (req.session && req.session.userId && !req.session.isAdmin) {
+		return next();
+	} else {
+		return res.redirect('/');
+	}
 });
 
-router.get('/listener-login', function(req, res) {
-	res.sendFile(path.join(__dirname+"/listener-login/index.html"));
+router.get('/chat', function (req, res, next) {
 });
 
-router.get('/login', function(req, res) {
-	res.sendFile(path.join(__dirname+"/login/index.html"));
-});
-
-router.get('/admin-homepage', function(req, res) {
-	res.sendFile(path.join(__dirname+"/admin-homepage/index.html"));
-});
-
-router.get('/listener-homepage', function(req, res) {
-	res.sendFile(path.join(__dirname+"/listener-homepage/index.html"));
-});
-
-router.get('/chat', function(req, res) {
-	res.sendFile(path.join(__dirname+"/chat/index.html"));
-});
-
-router.get('/logout', function(req, res, next) {
+router.get('/logout', function (req, res, next) {
 	if (req.session) {
-	  // delete session object
-	  req.session.destroy(function(err) {
-		if(err) {
-		  return next(err);
-		} else {
-		  return res.sendFile(__dirname + '/index.html');
-		}
-	  });
+		// delete session object
+		req.session.destroy(function (err) {
+			if (err) {
+				return next(err);
+			} else {
+				return res.redirect('/');
+			}
+		});
 	}
-  });
+});
 
-app.post('/admin-register', function(req, res) {
+app.use(express.static("public"));
+
+app.get('/user-name', function(req, res) {
+	if (req.session && req.session.name) {
+		return res.status(200).json({
+			status: 200,
+			name: req.session.name
+		});
+	}
+	return res.status(404).json({
+		status: 404,
+		message: "Session data not found!"
+	});
+})
+
+app.post('/admin-register', function (req, res) {
 	let email = req.body.email;
 	let password = req.body.password;
-	console.log(email);
-	console.log(password);
+	let firstName = req.body.firstName;
+	let lastName = req.body.lastName;
+
 	let newAdmin = {
 		email: email,
-		password: password
+		password: password,
+		firstName: firstName,
+		lastName: lastName
 	}
-	AdminList.post(newAdmin)
-        .then(admin => {
-            return res.status(200).json({
-                message: "Registered!",
-                status:200
-            });
-        })
-        .catch( err => {
+	AdminList.register(newAdmin)
+		.then(admin => {
+			return res.status(200).json({
+				message: "Registered!",
+				status: 200
+			});
+		})
+		.catch(err => {
 			res.statusMessage = "Something went wrong with the DB. Try again later.";
-			return res.status( 500 ).json({
-				status : 500,
-				message : "Something went wrong with the DB. Try again later."
+			return res.status(500).json({
+				status: 500,
+				message: "Something went wrong with the DB. Try again later."
 			})
-        });
+		});
 });
 
-app.post('/admin-login', function(req, res) {
+app.post('/admin-login', function (req, res) {
 	let email = req.body.email;
 	let password = req.body.password;
 
-	AdminList.login(email, password, function(err, isMatch, reason) {
+	AdminList.login(email, password, function (err, user) {
 		if (err) {
 			if (err.status === 401) {
 				res.statusMessage = "User not found";
-					return res.status( 401 ).json({
-					status : 401,
-					message : "User not found"
+				return res.status(401).json({
+					status: 401,
+					message: "User not found"
 				});
 			}
 			res.statusMessage = "Something went wrong with the DB. Try again later.";
-			return res.status( 500 ).json({
-				status : 500,
-				message : "Something went wrong with the DB. Try again later."
+			return res.status(500).json({
+				status: 500,
+				message: "Something went wrong with the DB. Try again later."
 			})
 		}
-		if (isMatch) {
+		if (user) {
+			console.log(req.session);
+			req.session.userId = user._id;
+			req.session.isAdmin = true;
+			req.session.name = user.firstName;
 			return res.status(200).json({
 				message: "Logged in",
-				status:200
+				status: 200
 			});
 		} else {
 			return res.status(403).json({
 				message: "Wrong password",
-				status:403
+				status: 403
+			});
+		}
+	});
+})
+
+app.post('/listener-register', function (req, res) {
+	let email = req.body.email;
+	let password = req.body.password;
+	let firstName = req.body.firstName;
+	let lastName = req.body.lastName;
+
+	let newListener = {
+		email: email,
+		password: password,
+		firstName: firstName,
+		lastName: lastName
+	}
+	ListenerList.register(newListener)
+		.then(listener => {
+			return res.status(200).json({
+				message: "Registered!",
+				status: 200
+			});
+		})
+		.catch(err => {
+			res.statusMessage = "Something went wrong with the DB. Try again later.";
+			return res.status(500).json({
+				status: 500,
+				message: "Something went wrong with the DB. Try again later."
+			})
+		});
+});
+
+app.post('/listener-login', function (req, res) {
+	let email = req.body.email;
+	let password = req.body.password;
+
+	ListenerList.login(email, password, function (err, user) {
+		if (err) {
+			if (err.status === 401) {
+				res.statusMessage = "User not found";
+				return res.status(401).json({
+					status: 401,
+					message: "User not found"
+				});
+			}
+			res.statusMessage = "Something went wrong with the DB. Try again later.";
+			return res.status(500).json({
+				status: 500,
+				message: "Something went wrong with the DB. Try again later."
+			})
+		}
+		if (user) {
+			req.session.userId = user._id;
+			req.session.name = user.firstName;
+			req.session.isAdmin = false;
+			console.log(req.session);
+			return res.status(200).json({
+				message: "Logged in",
+				status: 200
+			});
+		} else {
+			return res.status(403).json({
+				message: "Wrong password",
+				status: 403
 			});
 		}
 	});
@@ -137,36 +203,36 @@ app.post('/admin-login', function(req, res) {
 
 let server;
 
-function runServer(port, databaseUrl){
-	return new Promise( (resolve, reject ) => {
-		mongoose.connect(databaseUrl, {useNewUrlParser: true, useUnifiedTopology: true}, response => {
-			if ( response ){
+function runServer(port, databaseUrl) {
+	return new Promise((resolve, reject) => {
+		mongoose.connect(databaseUrl, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex: true }, response => {
+			if (response) {
 				return reject(response);
 			}
-			else{
+			else {
 				server = app.listen(port, () => {
-					console.log( "App is running on port " + port );
+					console.log("App is running on port " + port);
 					resolve();
 				})
-				.on( 'error', err => {
-					mongoose.disconnect();
-					return reject(err);
-				})
+					.on('error', err => {
+						mongoose.disconnect();
+						return reject(err);
+					})
 			}
 		});
 	});
 }
 
-function closeServer(){
+function closeServer() {
 	return mongoose.disconnect()
 		.then(() => {
 			return new Promise((resolve, reject) => {
 				console.log('Closing the server');
-				server.close( err => {
-					if (err){
+				server.close(err => {
+					if (err) {
 						return reject(err);
 					}
-					else{
+					else {
 						resolve();
 					}
 				});
@@ -174,9 +240,9 @@ function closeServer(){
 		});
 }
 
-runServer( PORT, DATABASE_URL )
-	.catch( err => {
-		console.log( err );
+runServer(PORT, DATABASE_URL)
+	.catch(err => {
+		console.log(err);
 	});
 
 module.exports = { app, runServer, closeServer };
