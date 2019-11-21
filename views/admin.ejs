@@ -21,7 +21,7 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
             </ul>
-            <form class="form-inline my-2 my-lg-0" id="adminLogin" action="/" method="GET">
+            <form class="form-inline my-2 my-lg-0" id="adminLogin" action="/logout" method="GET">
                 <button class="btn btn-outline-success m-2 my-sm-0 logout-btn" type="submit">Logout</button>
             </form>
         </div>
@@ -58,7 +58,7 @@
                                     <input type="radio" name="options" id="btn-admin-register" autocomplete="off" value="1"> Admin
                                 </label>
                             </div>
-                            <input type="button" class="btn btn-primary" value="Register" id="btn-register" type="submit">
+                            <button class="btn btn-primary" id="btn-register" type="submit">Register</button>
                         </form>
                     </div>
                 </div>
@@ -67,7 +67,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title">Borrar Usuario</h2>
-                        <form>
+                        <form id="delete-form">
                             <div class="form-group">
                                 <label for="delete_email">Email address</label>
                                 <input type="email" class="form-control" id="delete_email"  placeholder="Email">  
@@ -80,7 +80,7 @@
                                     <input type="radio" name="options" id="btn-admin-delete" autocomplete="off" value="1"> Admin
                                 </label>
                             </div>
-                            <input type="button" class="btn btn-danger" value="Delete" id="btn-delete" type="submit">
+                            <button class="btn btn-danger" id="btn-delete" type="submit">Delete</button>
                         </form>
                     </div>
                 </div>

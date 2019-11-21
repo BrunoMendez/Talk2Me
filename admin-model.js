@@ -68,6 +68,15 @@ let AdminList = {
             .catch(error => {
                 throw Error(error);
             });
+    },
+    removeOne: function (email) {
+        return Admin.remove({email: email})
+            .then(admin => {
+                return admin;
+            })
+            .catch(error => {
+                throw Error(error);
+            });
     }
 }
 
