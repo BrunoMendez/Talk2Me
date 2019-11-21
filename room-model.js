@@ -3,6 +3,7 @@ let bcrypt = require("bcrypt");
 mongoose.Promise = global.Promise;
 
 var MessageSchema = new mongoose.Schema({
+    name: String,
     message: String,
     isListener: Boolean,
     time: Date,

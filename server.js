@@ -187,6 +187,7 @@ app.post('/new-chat', function(req, res) {
 	}
 	let currentTime = new Date();
 	let initalMessage ={
+		name: "Admin",
 		message: "Chat open",
 		isListener: true,
 		time: currentTime

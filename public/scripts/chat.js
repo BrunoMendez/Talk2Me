@@ -14,11 +14,11 @@ var interval = setInterval(function() {
       .then(responseJSON => {
           resetChat();
           responseJSON.messages.forEach(message =>{
-              insertChat(message.isListener, message.message);
+              insertChat(message.isListener, message.message, message.name);
           });
       })
       .catch(error => {
-        insertChat(!isListener, "User left");
+        insertChat(!isListener, "User left", "Admin");
         setTimeout(function() { window.location.reload(false);}, 3000);
         clearInterval(interval);
       });
@@ -36,7 +36,7 @@ function formatAMPM(date) {
 }            
 
 //-- No use time. It is a javaScript effect.
-function insertChat(isListener, text, time = 0){
+function insertChat(isListener, text, senderName, time = 0){
     var control = "";
     var date = formatAMPM(new Date());
     
@@ -44,7 +44,7 @@ function insertChat(isListener, text, time = 0){
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
                             '<div class="text text-l">' +
-                                '<p class="name-in-msg-listener">' + name + '</p>' +
+                                '<p class="name-in-msg-listener">' + senderName + '</p>' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
@@ -54,7 +54,7 @@ function insertChat(isListener, text, time = 0){
         control = '<li style="width:100%;">' +
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
-                                '<p class="name-in-msg-anon">Anonymous</p>' +
+                                '<p class="name-in-msg-anon">' + senderName + '</p>' +
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
@@ -80,6 +80,7 @@ $(".mytext").on("keyup", function(e){
         if (text !== ""){
 
             let message = {
+                name: name,
                 message: text,
                 isListener: isListener,
                 time: new Date()
