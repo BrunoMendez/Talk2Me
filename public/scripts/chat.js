@@ -16,7 +16,7 @@ var interval = setInterval(function () {
                 let message = responseJSON.messages[i];
                 cont++;
                 insertChat(message.isListener, message.message, message.name);
-                setTimeout(function() {$("#message-list").scrollTop($("#message-list")[0].scrollHeight);}, 50);
+                setTimeout(function () { $("#message-list").scrollTop($("#message-list")[0].scrollHeight); }, 50);
             }
         })
         .catch(error => {
@@ -47,7 +47,7 @@ function insertChat(isListener, text, senderName, time = 0) {
             '<div class="msj macro">' +
             '<div class="text text-l">' +
             '<p class="name-in-msg-listener">' + senderName + '</p>' +
-            '<p>' + text + '</p>' +
+            '<p class="text-message">' + text + '</p>' +
             '<p><small>' + date + '</small></p>' +
             '</div>' +
             '</div>' +
@@ -57,7 +57,7 @@ function insertChat(isListener, text, senderName, time = 0) {
             '<div class="msj-rta macro">' +
             '<div class="text text-r">' +
             '<p class="name-in-msg-anon">' + senderName + '</p>' +
-            '<p>' + text + '</p>' +
+            '<p class="text-message">' + text + '</p>' +
             '<p><small>' + date + '</small></p>' +
             '</div>' +
             '<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
