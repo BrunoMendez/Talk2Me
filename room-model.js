@@ -60,6 +60,15 @@ let RoomList = {
     pushMessages: function (id, messages) {
         return Room.update({ _id: id }, { $push: { messages: { $each: messages } } });
     },
+    turnInactive: function (id) {
+        return Room.updateOne({ _id: id }, { isActive: false } )
+        .then(room => {
+            return room;
+        })
+        .catch(error => {
+            throw Error(error);
+        });
+    },
     removeAll: function () {
         return Room.remove({})
             .then(room => {
