@@ -9,7 +9,7 @@
     </title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="index.css" />
+    <link rel="stylesheet" type="text/css" href="../css/chat.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 
@@ -33,19 +33,21 @@
             <form class="form-inline my-2 my-lg-0" id="listener-logout" action="/logout" method="GET">
                 <button class="btn btn-outline-success m-2 my-sm-0 login-btn" type="submit">Logout</button>
             </form>
+            <form class="form-inline my-2 my-lg-0" id="end-chat" action="/logout" method="GET">
+                <button class="btn btn-outline-success2 m-2 my-sm-0 login-btn" type="submit">End Chat</button>
+            </form>
         </div>
     </nav>
-    <div class="main">
-        <div class="jumbotron">
-            <h1 class="display-4 hero-h1" id="greeting">Bienvenido</h1>
-            <p class="lead">Recuerda que como escuchador tu deber es apoyar a las personas con las que trabajas y darles una experiencia positiva de la plataforma. Queremos que los usuarios se sientan comodos y regresen.</p>
-            <hr class="my-4">
-            <p class="lead">Da click en "Comienza a Escuchar" para buscar un escuchador que te ayude.</p>
+    <div class="frame">
+            <ul id="message-list"></ul>
+            <div>
+                <div class="msj-rta macro" style="margin:auto">                        
+                    <div class="text text-r" style="background:whitesmoke !important">
+                        <input class="mytext" placeholder="Type a message"/>
+                    </div> 
+                </div>
+            </div>
         </div>
-        <div class="button-section">
-            <a href="#" class="special-button instagram"><span class="gradient"></span>Comienza a Escuchar</a>
-        </div>
-    </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -55,7 +57,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
-    <script src="index.js" type="text/javascript"></script>
+    <script src="../scripts/chat.js" type="text/javascript"></script>
 </body>
 
 </html>

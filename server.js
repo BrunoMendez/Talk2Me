@@ -12,6 +12,10 @@ let app = express();
 let router = express.Router();
 mongoose.Promise = global.Promise;
 
+app.set('views', './views');
+app.set('view engine', 'ejs');
+
+app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -23,24 +27,37 @@ app.use(session({
 }));
 app.use('/', router);
 
+
+router.get('/', function (req, res, next) {
+	res.render('index');
+});
+
+router.get('/login', function (req, res, next) {
+	res.render('login');
+});
+
+router.get('/chat', function (req, res, next) {
+	res.render('chat');
+});
+
 router.get('/admin-homepage', function (req, res, next) {
 	if (req.session && req.session.userId && req.session.isAdmin) {
-		return next();
+		res.render('admin');
 	} else {
-		return res.redirect('/');
+		res.redirect('/');
 	}
 });
 
 router.get('/listener-homepage', function (req, res, next) {
-	console.log(req.session);
 	if (req.session && req.session.userId && !req.session.isAdmin) {
-		return next();
+		res.render('listener');
 	} else {
-		return res.redirect('/');
+		res.redirect('/');
 	}
 });
 
-router.get('/chat', function (req, res, next) {
+router.get('/chat/:id', function (req, res, next) {
+	res.sendFile(__dirname + "/chat/index.html");
 });
 
 router.get('/logout', function (req, res, next) {
@@ -55,8 +72,6 @@ router.get('/logout', function (req, res, next) {
 		});
 	}
 });
-
-app.use(express.static("public"));
 
 app.get('/user-name', function(req, res) {
 	if (req.session && req.session.name) {
