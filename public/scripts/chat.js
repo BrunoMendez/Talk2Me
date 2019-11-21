@@ -46,7 +46,7 @@ function insertChat(isListener, text, senderName, time = 0){
                         '<div class="msj macro">' +
                             '<div class="text text-l">' +
                                 '<p class="name-in-msg-listener">' + senderName + '</p>' +
-                                '<p>'+ text +'</p>' +
+                                '<p class="text-message">'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
                         '</div>' +
@@ -56,7 +56,7 @@ function insertChat(isListener, text, senderName, time = 0){
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
                                 '<p class="name-in-msg-anon">' + senderName + '</p>' +
-                                '<p>'+text+'</p>' +
+                                '<p class="text-message">'+text+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
                         '<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +                                
