@@ -1,9 +1,9 @@
-$('form a').click(function (event) {
+$('form a').click(function(event) {
     event.preventDefault();
     $(this).closest('form').attr('action', this.href).attr('method', 'post').submit();
 });
 let cont = 0;
-var interval = setInterval(function () {
+var interval = setInterval(function() {
     fetch('/get-messages/' + id)
         .then(response => {
             if (response.ok) {
@@ -16,12 +16,12 @@ var interval = setInterval(function () {
                 let message = responseJSON.messages[i];
                 cont++;
                 insertChat(message.isListener, message.message, message.name);
-                setTimeout(function () { $("#message-list").scrollTop($("#message-list")[0].scrollHeight); }, 50);
+                setTimeout(function() { $("#message-list").scrollTop($("#message-list")[0].scrollHeight); }, 50);
             }
         })
         .catch(error => {
             insertChat(!isListener, "User left", "Admin");
-            setTimeout(function () { window.location.reload(false); }, 3000);
+            setTimeout(function() { window.location.reload(false); }, 3000);
             clearInterval(interval);
         });
 }, 1000);
@@ -64,7 +64,7 @@ function insertChat(isListener, text, senderName, time = 0) {
             '</li>';
     }
     setTimeout(
-        function () {
+        function() {
             $("#message-list").append(control);
 
         }, time);
@@ -75,7 +75,7 @@ function resetChat() {
     $("#message-list").empty();
 }
 
-$(".mytext").on("keyup", function (e) {
+$(".mytext").on("keyup", function(e) {
     if (e.which == 13) {
         console.log(isListener);
         var text = $(this).val();

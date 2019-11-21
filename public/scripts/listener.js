@@ -9,7 +9,7 @@ function init() {
         },
         body: JSON.stringify(listener)
     }
-    $("#newChat").on("click", function (e) {
+    $("#newChat").on("click", function(e) {
         e.preventDefault(); // cancel the link itself
         fetch(this.href, settings);
     });

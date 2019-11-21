@@ -28,8 +28,8 @@ var RoomSchema = new mongoose.Schema({
 var Room = mongoose.model('Room', RoomSchema);
 
 let RoomList = {
-    get: function (id) {
-        return Room.findOne({_id: id})
+    get: function(id) {
+        return Room.findOne({ _id: id })
             .then(room => {
                 return room;
             })
@@ -37,7 +37,7 @@ let RoomList = {
                 throw Error(error);
             });
     },
-    getActive: function () {
+    getActive: function() {
         return Room.findOne({ isActive: true })
             .then(room => {
                 return room;
@@ -46,7 +46,7 @@ let RoomList = {
                 throw Error(error);
             });
     },
-    new: function (room) {
+    new: function(room) {
         return Room.create(room)
             .then(room => {
                 return room;
@@ -55,22 +55,22 @@ let RoomList = {
                 throw Error(error);
             });
     },
-    pushMessage: function (id, message) {
+    pushMessage: function(id, message) {
         return Room.update({ _id: id }, { $push: { messages: message } });
     },
-    pushMessages: function (id, messages) {
+    pushMessages: function(id, messages) {
         return Room.update({ _id: id }, { $push: { messages: { $each: messages } } });
     },
-    turnInactive: function (id) {
-        return Room.updateOne({ _id: id }, { isActive: false } )
-        .then(room => {
-            return room;
-        })
-        .catch(error => {
-            throw Error(error);
-        });
+    turnInactive: function(id) {
+        return Room.updateOne({ _id: id }, { isActive: false })
+            .then(room => {
+                return room;
+            })
+            .catch(error => {
+                throw Error(error);
+            });
     },
-    removeAll: function () {
+    removeAll: function() {
         return Room.remove({})
             .then(room => {
                 return room;
@@ -79,8 +79,8 @@ let RoomList = {
                 throw Error(error);
             });
     },
-    removeOne: function (id) {
-        return Room.remove({_id: id})
+    removeOne: function(id) {
+        return Room.remove({ _id: id })
             .then(room => {
                 return room;
             })

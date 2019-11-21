@@ -1,6 +1,7 @@
 html {
     height: 100%;
 }
+
 body {
     min-height: 100%;
     width: 100%;
@@ -10,154 +11,181 @@ body {
     background-attachment: fixed;
     background-position: center;
 }
+
 .navbar {
-  background-color: rgba(50, 90, 102, 0.9);
+    background-color: rgba(50, 90, 102, 0.9);
 }
+
 .navbar-brand {
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 600;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
 }
+
 .btn-outline-success {
     color: #FFF9B1;
     border-color: #FFF9B1;
 }
+
 .btn-outline-success2 {
     color: orangered;
     border-color: orangered;
 }
+
 .btn-lg {
     padding: .5rem 1rem;
     font-size: 1.5rem;
     line-height: 1.5;
     border-radius: .3rem;
 }
+
 .login-btn {
-  font-size: 1.25rem;
+    font-size: 1.25rem;
 }
 
-.mytext{
-    border:0;padding:10px;
-    background:whitesmoke;
+.mytext {
+    border: 0;
+    padding: 10px;
+    background: whitesmoke;
 }
-.text{
-    width:100%;
-    display:flex;
-    flex-direction:column;
+
+.text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
 }
-.text > p:first-of-type{
-    width:100%;
-    margin-top:0;
-    margin-bottom:auto;
+
+.text>p:first-of-type {
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: auto;
     line-height: 13px;
     font-size: 12px;
     word-break: break-all;
 }
-.text > p:last-of-type{
-    width:100%;
-    text-align:right;
-    color:silver;
-    margin-bottom:-7px;
-    margin-top:auto;
-}
-.text-l{
-    float:left;padding-right:10px;
-}        
-.text-r{
-    float:right;padding-left:10px;
+
+.text>p:last-of-type {
+    width: 100%;
+    text-align: right;
+    color: silver;
+    margin-bottom: -7px;
+    margin-top: auto;
 }
 
-.macro{
-    margin-top:5px;
-    width:auto;
+.text-l {
+    float: left;
+    padding-right: 10px;
+}
+
+.text-r {
+    float: right;
+    padding-left: 10px;
+}
+
+.macro {
+    margin-top: 5px;
+    width: auto;
     max-width: 75%;
-    border-radius:5px;
-    padding:5px;
-    display:flex;
+    border-radius: 5px;
+    padding: 5px;
+    display: flex;
 
 }
-.msj-rta{
-    float:right;
-    background:whitesmoke;
+
+.msj-rta {
+    float: right;
+    background: whitesmoke;
 }
-.msj{
-    float:left;
-    background:white;
+
+.msj {
+    float: left;
+    background: white;
 }
-.frame{
+
+.frame {
     background-image: url(../assets/listenerBG.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-position: center;
-    height:93.5%;
-    overflow:hidden;
-    padding:0;
+    height: 93.5%;
+    overflow: hidden;
+    padding: 0;
 }
-.frame > div:last-of-type{
-    position:absolute;
-    bottom:0px;
+
+.frame>div:last-of-type {
+    position: absolute;
+    bottom: 0px;
     padding: 0 20px;
-    width:100%;
-    display:flex;
+    width: 100%;
+    display: flex;
     margin-bottom: 20px;
 }
+
 #message-list {
-    width:100%;
+    width: 100%;
     max-height: 80%;
     height: 80%;
     list-style-type: none;
-    padding:18px;
-    position:absolute;
-    display:flex;
+    padding: 18px;
+    position: absolute;
+    display: flex;
     flex-direction: column;
-    overflow:hidden; 
-    overflow-y:scroll;
+    overflow: hidden;
+    overflow-y: scroll;
 }
-.msj:before{
+
+.msj:before {
     width: 0;
     height: 0;
-    content:"";
-    top:-5px;
-    left:-14px;
-    position:relative;
+    content: "";
+    top: -5px;
+    left: -14px;
+    position: relative;
     border-style: solid;
     border-width: 0 13px 13px 0;
-    border-color: transparent #ffffff transparent transparent;            
+    border-color: transparent #ffffff transparent transparent;
 }
-.msj-rta:after{
+
+.msj-rta:after {
     width: 0;
     height: 0;
-    content:"";
-    top:-5px;
-    left:14px;
-    position:relative;
+    content: "";
+    top: -5px;
+    left: 14px;
+    position: relative;
     border-style: solid;
     border-width: 13px 13px 0 0;
-    border-color: whitesmoke transparent transparent transparent;           
-}  
+    border-color: whitesmoke transparent transparent transparent;
+}
+
 #text-field {
     width: 100%;
     max-width: 100%;
 }
+
 .name-in-msg-anon {
     color: darkred;
 }
+
 .name-in-msg-listener {
-    color: darkgreen; 
+    color: darkgreen;
 }
+
 .text-message {
     margin-bottom: 0px;
 }
-input:focus{
+
+input:focus {
     outline: none;
-} 
-@media (min-width: 992px){
-  .navbar-expand-lg {
-      padding-left: 3em;
-      padding-right: 3em;
-      -ms-flex-flow: row nowrap;
-      flex-flow: row nowrap;
-      -ms-flex-pack: start;
-      justify-content: flex-start;
-  }
+}
+
+@media (min-width: 992px) {
+    .navbar-expand-lg {
+        padding-left: 3em;
+        padding-right: 3em;
+        -ms-flex-flow: row nowrap;
+        flex-flow: row nowrap;
+        -ms-flex-pack: start;
+        justify-content: flex-start;
+    }
 }
