@@ -39,6 +39,10 @@ router.get('/', function (req, res, next) {
 	}
 });
 
+router.get('/about-us', function(req, res) {
+	res.render('aboutus');
+});
+
 router.get('/login', function (req, res, next) {
 	if (req.session && req.session.userId && !req.session.isAdmin) {
 		res.render('listener', {name : req.session.name});
