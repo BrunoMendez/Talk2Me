@@ -39,10 +39,10 @@ function insertChat(isListener, text, time = 0){
     var date = formatAMPM(new Date());
     
     if (!isListener){
-        
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
                             '<div class="text text-l">' +
+                                '<p class="name-in-msg-listener">' + name + '</p>' +
                                 '<p>'+ text +'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
@@ -52,6 +52,7 @@ function insertChat(isListener, text, time = 0){
         control = '<li style="width:100%;">' +
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
+                                '<p class="name-in-msg-anon">Anonymous</p>' +
                                 '<p>'+text+'</p>' +
                                 '<p><small>'+date+'</small></p>' +
                             '</div>' +
