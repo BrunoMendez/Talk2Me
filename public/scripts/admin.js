@@ -1,5 +1,5 @@
-let btnRegister = $("#btn-register");
-let btnDelete = $("#btn-delete");
+let registerForm = $("#register-form");
+let deleteForm = $("#delete-form");
 console.log("wake up");
 
 function ajaxSettingsRegister(userIndex){
@@ -8,6 +8,8 @@ function ajaxSettingsRegister(userIndex){
   let user = {
     email: $("#register_email").val(),
     password: $("#register_password").val(),
+    firstName: $("#register_name").val(),
+    lastName: $('#register_lastname').val()
   };
   let settings = {
     url: (isAdmin ? "/admin-register" : "/listener-register"),
@@ -53,7 +55,7 @@ function ajaxSettingsDelete(userIndex){
   return settings;
 }
 
-btnRegister.on("click", event => {
+registerForm.on("submit", event => {
   event.preventDefault();
 
   var userType = $('#btn-type-register label.active input').val();
