@@ -12,6 +12,10 @@ let app = express();
 let router = express.Router();
 mongoose.Promise = global.Promise;
 
+app.set('views', ['./public', './public/login']);
+app.set('view engine', 'ejs');
+
+app.use(express.static("public"));
 app.use(morgan("dev"));
 app.use(bodyParser.json());
 app.use(cookieParser());
@@ -40,7 +44,16 @@ router.get('/listener-homepage', function (req, res, next) {
 	}
 });
 
-router.get('/chat', function (req, res, next) {
+router.get('/chat/:id', function (req, res, next) {
+	res.sendFile(__dirname + "/chat/index.html");
+});
+
+router.get('/', function (req, res, next) {
+	res.render('index');
+});
+
+router.get('/login', function (req, res, next) {
+	res.render('/login/index');
 });
 
 router.get('/logout', function (req, res, next) {
@@ -55,8 +68,7 @@ router.get('/logout', function (req, res, next) {
 		});
 	}
 });
-
-app.use(express.static("public"));
+// app.use(express.urlencoded({extended: true}));
 
 app.get('/user-name', function(req, res) {
 	if (req.session && req.session.name) {
