@@ -1,9 +1,9 @@
-var me = {};
+$('form a').click(function(event){
+    event.preventDefault();
+    $(this).closest('form').attr('action', this.href ).attr('method', 'post').submit();
+});
 
-var you = {};
-
-setInterval(function() {
-    console.log(isListener);
+var interval = setInterval(function() {
     fetch('/get-messages/' + id)    
     .then(response => {
         if(response.ok) {
@@ -18,7 +18,9 @@ setInterval(function() {
           });
       })
       .catch(error => {
-        console.log(error);
+        insertChat(!isListener, "User left");
+        setTimeout(function() { window.location.reload(false);}, 3000);
+        clearInterval(interval);
       });
 }, 1000);
 

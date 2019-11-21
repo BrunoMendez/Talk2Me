@@ -109,20 +109,13 @@ app.get('/user-name', function(req, res) {
 	});
 })
 
-app.delete('/leave-chat/:id', function(req, res) {
+app.post('/leave-chat/:id', function(req, res) {
 	RoomList.removeOne(req.params.id)
 	.then(chat =>{
-		return res.status(200).json({
-			message: "Deleted!",
-			status: 200
-		});
+		return res.redirect('/');
 	})
 	.catch(err => {
-		res.statusMessage = "Something went wrong with the DB. Try again later.";
-		return res.status(500).json({
-			status: 500,
-			message: "Something went wrong with the DB. Try again later."
-		});
+		return res.redirect('/');
 	});
 })
 
@@ -163,6 +156,7 @@ app.post('/add-message/:id', function(req,res) {
 app.get('/find-chat', function(req, res) {
 	RoomList.getActive()
 		.then(chat =>{
+			RoomList.turnInactive(chat._id);
 			res.redirect('/chat/' + chat._id);
 		})
 		.catch(err =>{
