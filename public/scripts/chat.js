@@ -2,6 +2,26 @@ var me = {};
 
 var you = {};
 
+setInterval(function() {
+    console.log(isListener);
+    fetch('/get-messages/' + id)    
+    .then(response => {
+        if(response.ok) {
+          return response.json();
+        }
+        throw new Error (response.statusText);
+      })
+      .then(responseJSON => {
+          resetChat();
+          responseJSON.messages.forEach(message =>{
+              insertChat(message.isListener, message.message);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+      });
+}, 1000);
+
 function formatAMPM(date) {
     var hours = date.getHours();
     var minutes = date.getMinutes();
@@ -14,11 +34,11 @@ function formatAMPM(date) {
 }            
 
 //-- No use time. It is a javaScript effect.
-function insertChat(who, text, time = 0){
+function insertChat(isListener, text, time = 0){
     var control = "";
     var date = formatAMPM(new Date());
     
-    if (who == "me"){
+    if (!isListener){
         
         control = '<li style="width:100%">' +
                         '<div class="msj macro">' +
@@ -28,7 +48,7 @@ function insertChat(who, text, time = 0){
                             '</div>' +
                         '</div>' +
                     '</li>';                    
-    }else{
+    } else {
         control = '<li style="width:100%;">' +
                         '<div class="msj-rta macro">' +
                             '<div class="text text-r">' +
@@ -52,14 +72,28 @@ function resetChat(){
 
 $(".mytext").on("keyup", function(e){
     if (e.which == 13){
+        console.log(isListener);
         var text = $(this).val();
         if (text !== ""){
-            insertChat("me", text);              
-            $(this).val('');
+
+            let message = {
+                message: text,
+                isListener: isListener,
+                time: new Date()
+            }
+            let settings = {
+                method: "POST",
+                headers: {
+                    'Content-Type': "application/json"
+                },
+                body: JSON.stringify(message)
+            }
+            fetch('/add-message/' + id, settings);
+            $(this).val(' ');
         }
     }
 });
-
+/*
 //-- Clear Chat
 resetChat();
 
@@ -70,6 +104,7 @@ insertChat("me", "What would you like to talk about today?", 3500);
 insertChat("you", "Tell me a joke",7000);
 insertChat("me", "Spaceman: Computer! Computer! Do we bring battery?!", 9500);
 insertChat("you", "LOL", 12000);
+*/
 
 
 //-- NOTE: No use time on insertChat.
