@@ -164,6 +164,41 @@ app.get('/find-chat', function(req, res) {
 		});
 });
 
+app.delete('/delete-admin/:email', function(req, res) {
+	AdminList.removeOne(req.params.email)
+	.then(chat =>{
+		return res.status(200).json({
+			message: "Deleted!",
+			status: 200
+		})
+	})
+	.catch(err => {
+		res.statusMessage = "Something went wrong with the DB. Try again later.";
+		return res.status(500).json({
+			status: 500,
+			message: "Something went wrong with the DB. Try again later."
+		});
+	});
+});
+
+
+app.delete('/delete-listener/:email', function(req, res) {
+	ListenerList.removeOne(req.params.email)
+	.then(chat =>{
+		return res.status(200).json({
+			message: "Deleted!",
+			status: 200
+		})
+	})
+	.catch(err => {
+		res.statusMessage = "Something went wrong with the DB. Try again later.";
+		return res.status(500).json({
+			status: 500,
+			message: "Something went wrong with the DB. Try again later."
+		});
+	});
+});
+
 app.delete('/remove-chats', function(req, res) {
 	RoomList.removeAll()
 		.then(chat =>{
@@ -179,7 +214,7 @@ app.delete('/remove-chats', function(req, res) {
 				message: "Something went wrong with the DB. Try again later."
 			});
 		});
-})
+});
 
 app.post('/new-chat', function(req, res) {
 	if(!req.session) {

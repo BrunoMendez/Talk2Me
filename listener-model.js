@@ -68,6 +68,15 @@ let ListenerList = {
             .catch(error => {
                 throw Error(error);
             });
+    },
+    removeOne: function (email) {
+        return Listener.remove({email: email})
+            .then(listener => {
+                return listener;
+            })
+            .catch(error => {
+                throw Error(error);
+            });
     }
 }
 

@@ -1,72 +1,71 @@
-let registerForm = $("#register-form");
-let deleteForm = $("#delete-form");
-console.log("wake up");
+function init() {
+  let registerForm = $("#register-form");
+  let deleteForm = $("#delete-form");
 
-function ajaxSettingsRegister(userIndex){
-  let isAdmin = userIndex == "1";
-  //TODO: clean inputs
-  let user = {
-    email: $("#register_email").val(),
-    password: $("#register_password").val(),
-    firstName: $("#register_name").val(),
-    lastName: $('#register_lastname').val()
-  };
-  let settings = {
-    url: (isAdmin ? "/admin-register" : "/listener-register"),
-    method: "POST",
-    dataType: "JSON",
-    contentType: "application/json",
-    data: JSON.stringify(user),
-    success: (result) =>{
-      if (isAdmin) {
-        window.alert("TODO: Admin Register");
-      }else{
-        window.alert("TODO: Listener Register");
-      }
-    },
-    error: (result) =>{
-      window.alert("TODO: Register error")
-    }};
-  return settings;
+  registerForm.on("submit", event => {
+    event.preventDefault();
+    var userType = $('#btn-type-register label.active input').val();
+    let isAdmin = userType == "1";
+    //TODO: clean inputs
+    let user = {
+      email: $("#register_email").val(),
+      password: $("#register_password").val(),
+      firstName: $("#register_name").val(),
+      lastName: $('#register_lastname').val()
+    };
+    let url = (isAdmin ? "/admin-register" : "/listener-register");
+    let settings = {
+      method: "POST",
+      headers: {
+        'Content-Type': "application/json"
+      },
+      body: JSON.stringify(user)
+    }
+    fetch(url, settings)
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      })
+      .then(responseJSON => {
+        $("#register_email").val('');
+        $("#register_password").val('');
+        $("#register_name").val('');
+        $("#register_lastname").val('');
+      })
+      .catch(error => {
+        $("#register_email").val('');
+        $("#register_password").val('');
+        $("#register_name").val('');
+        $("#register_lastname").val('');
+        console.log(error);
+      });
+  });
+
+  deleteForm.on("submit", event => {
+    console.log("@@@");
+    event.preventDefault();
+    var userType = $('#btn-type-delete label.active input').val();
+    let isAdmin = userType == "1";
+    let email = $("#delete_email").val()
+    let url = (isAdmin ? "/delete-admin/" : "/delete-listener/") + email;
+    console.log(url);
+    fetch(url, { method:"DELETE" })
+      .then(response => {
+        if (response.ok) {
+          return response.json();
+        }
+        throw new Error(response.statusText);
+      })
+      .then(responseJSON => {
+        $("#delete_email").val('');
+      })
+      .catch(error => {
+        $("#delete_email").val('');
+      });
+  });
+  
 }
 
-function ajaxSettingsDelete(userIndex){
-  let isAdmin = userIndex == "1";
-  //TODO: clean inputs
-  let user = {
-    email: $("delete_email").val(),
-  }
-  let settings = {
-    url: (isAdmin ? "/admin-delete" : "/listener-delete"),
-    method: "DELETE",
-    dataType: "JSON",
-    contentType: "application/json",
-    data: JSON.stringify(user),
-    success: (result) =>{
-      if (isAdmin) {
-        window.alert("TODO: Admin Delete");
-      }else{
-        window.alert("TODO: Listener Delete");
-      }
-    },
-    error: (result) =>{
-      window.alert("TODO: Delete error")
-    }};
-  return settings;
-}
-
-registerForm.on("submit", event => {
-  event.preventDefault();
-
-  var userType = $('#btn-type-register label.active input').val();
-  let settings = ajaxSettingsRegister(userType);
-  $.ajax(settings);
-});
-
-btnDelete.on("click", event => {
-  event.preventDefault();
-  console.log("click");
-  var userType = $('#btn-type-delete label.active input').val();
-  let settings = ajaxSettingsDelete(userType);
-  $.ajax(settings);
-})
+init();

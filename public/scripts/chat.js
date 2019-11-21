@@ -2,7 +2,7 @@ $('form a').click(function(event){
     event.preventDefault();
     $(this).closest('form').attr('action', this.href ).attr('method', 'post').submit();
 });
-
+let cont = 0;
 var interval = setInterval(function() {
     fetch('/get-messages/' + id)    
     .then(response => {
@@ -12,10 +12,11 @@ var interval = setInterval(function() {
         throw new Error (response.statusText);
       })
       .then(responseJSON => {
-          resetChat();
-          responseJSON.messages.forEach(message =>{
+          for (let i = cont; i < responseJSON.messages.length; i++) {
+              let message = responseJSON.messages[i];
+              cont++;
               insertChat(message.isListener, message.message, message.name);
-          });
+          }
       })
       .catch(error => {
         insertChat(!isListener, "User left", "Admin");
