@@ -11,7 +11,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/listener.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <script defer src="http://localhost:8080/socket.io/socket.io.js"></script>
 </head>
 
 <body>
@@ -43,9 +42,10 @@
             <hr class="my-4">
             <p class="lead">Da click en "Comienza a Escuchar" para buscar un escuchador que te ayude.</p>
         </div>
-        <div class="button-section">
-            <a href="/chat" class="special-button instagram"><span class="gradient"></span>Comienza a Escuchar</a>
-        </div>
+        <form class="button-section" action="/new-chat" method="POST">
+            <button type="submit" class="special-button instagram"><span class="gradient"></span>Comienza a Escuchar</button>
+        </form>
+        <div id="name" style="visibility: hidden"><%-name %></div>
     </div>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"

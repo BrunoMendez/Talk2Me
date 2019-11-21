@@ -11,7 +11,11 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../css/chat.css" />
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
-    <script defer src="http://localhost:8080/socket.io/socket.io.js"></script>
+    <script>
+        const name = "<%= name %>";
+        const isListener = "<%= isListener %>";
+        const id =  "<%= roomId %>";
+    </script>
 </head>
 
 <body>
